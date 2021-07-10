@@ -1,1 +1,1 @@
-# bitfed.github.io
+# www.satelliteoflovediscord.com
