@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en" class="h-100 no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,7 @@
   <meta name="description" content="Join the Satellite of Love, a Discord Community Server for fans of MST3K, Rifftrax, Cinematic Titanic, The Mads, and more!">
   <meta property="og:title" content="Satellite of Love: A MST3K Discord Server">
   <meta property="og:description" content="Join the Satellite of Love, a Discord Community Server for fans of MST3K, Rifftrax, Cinematic Titanic, The Mads and more!">
-  <meta property="og:image" content="https://www.satelliteoflovediscord.com/sol.png">
+  <meta property="og:image" content="/sol.png">
   <!-- The image displayed when you share the link to a page on social media, 
         chat applications, or other sites that scrape URLs.. -->
   <!-- <meta property="og:image:alt" content="Image description"> -->
@@ -43,11 +43,59 @@
   <!-- For Android devices we need a .webmanifest file, which provides browsers
         with the information where the icons needed for the home screen and the
         splash screen for PWAs are located. -->
-  <meta name="theme-color" content="#FFFFFF">
+  <!-- <meta name="theme-color" content="#FFFFFF"> -->
+
+  <!-- Bootstrap core CSS -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+.bd-placeholder-img {
+font-size: 1.125rem;
+text-anchor: middle;
+-webkit-user-select: none;
+-moz-user-select: none;
+user-select: none;
+}
+
+@media (min-width: 768px) {
+.bd-placeholder-img-lg {
+      font-size: 3.5rem;
+}
+}
+</style>
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/cover.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="d-flex h-100 text-center text-white bg-dark">
+
   <!-- Content -->
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <!-- <div>
+          <h3 class="float-md-start mb-0">Welcome</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+          </nav>
+        </div> -->
+      </header>
+    
+      <main class="px-3">
+            <h1>Welcome to the Satellite of Love Discord</h1>
+            <p class="lead">We operate a safe space to hang out for all people, and a place to share your passion for films, satire, and just plain ol' bad movies. Our users range from old school tape traders to the latest generation of msties!</p>
+            <p class="lead">
+                  <a href="https://discord.gg/8etVfajF4V" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Join</a>
+            </p>
+            <img src="assets/images/sol-900.png" class="img-fluid mx-auto" />
+      </main>
+    
+      <footer class="mt-auto text-white-50">
+        <!-- <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p> -->
+      </footer>
+    </div>
 
 
 
@@ -55,7 +103,12 @@
 
 
 
-  <script src="/assets/js/vendor/modernizr-3.11.2.min.js" nomodule></script>
+
+
+
+
+
+  <!-- <script src="/assets/js/vendor/modernizr-3.11.2.min.js" nomodule></script> -->
   <!-- <script src="/assets/js/script.js" type="module"></script> -->
 </body>
 </html>
