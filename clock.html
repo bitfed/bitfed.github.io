@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise/Sunset Clock</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap'); /* Importing a retro digital font */
+
+        /* Default light mode styles */
+        body {
+            background-color: #feda03; /* Bright yellow, reminiscent of The Simpsons */
+            font-family: 'VT323', monospace; /* Retro digital font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #clock {
+            font-size: 48px;
+            background-color: #000000;
+            color: #00ff00; /* Red digital clock color in light mode */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #000000;
+        }
+
+        .toggle-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #eee;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+
+        body.dark-mode .toggle-button {
+            background-color: #333;
+            color: white;
+        }
+
+        body.dark-mode #clock {
+            color: red; /* Green digital clock color in dark mode */
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">Loading...</div>
+    <button id="dark-mode-toggle" class="toggle-button">Toggle Dark Mode</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const clockElement = document.getElementById('clock');
+
+            // Dark Mode Toggle Functionality
+            toggleButton.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+            });
+
+            // Sunrise/Sunset Clock Functionality
+            function updateClock(sunriseTime, sunsetTime, currentTime) {
+                let dayLength = sunsetTime - sunriseTime;
+                let nightLength = 24 * 60 * 60 - dayLength;
+                let currentCycleTime;
+
+                if (currentTime >= sunriseTime && currentTime < sunsetTime) {
+                    // Daytime
+                    let dayProgress = (currentTime - sunriseTime) / dayLength;
+                    currentCycleTime = dayProgress * 12;
+                } else {
+                    // Nighttime
+                    if (currentTime < sunriseTime) {
+                        currentTime += 24 * 60 * 60; // Adjust for before midnight
+                    }
+                    let nightProgress = (currentTime - sunsetTime) / nightLength;
+                    currentCycleTime = nightProgress * 12;
+                }
+
+                let hours = Math.floor(currentCycleTime);
+                let minutes = Math.floor((currentCycleTime - hours) * 60);
+                let seconds = Math.floor(((currentCycleTime - hours) * 60 - minutes) * 60);
+
+                clockElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            function startClock() {
+                const sunriseTime = convertToSeconds('07:18:00'); // Sunrise time in San Francisco
+                const sunsetTime = convertToSeconds('16:52:00');  // Sunset time in San Francisco
+
+                setInterval(() => {
+                    const now = new Date();
+                    const currentTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+                    updateClock(sunriseTime, sunsetTime, currentTime);
+                }, 1000);
+            }
+
+            function convertToSeconds(time) {
+                const parts = time.split(':');
+                return parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2]);
+            }
+
+            startClock();
+        });
+    </script>
+</body>
+</html>
