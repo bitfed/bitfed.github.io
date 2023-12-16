@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minecraft Clock</title>
+    <style>
+        .minecraft-clock {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(to right, yellow 50%, gray 50%);
+            animation: rotateClock 20s linear infinite;
+        }
+
+        @keyframes rotateClock {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="minecraft-clock"></div>
+</body>
+</html>
