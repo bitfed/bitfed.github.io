@@ -2,7 +2,7 @@
 // @name         Asocial reddit
 // @namespace    http://bitfed.net/
 // @version      1.0
-// @description  Hides the notification count flag on reddit.
+// @description  Hides notification count on Reddit and from the page title.
 // @author       bitfed
 // @match        https://www.reddit.com/*
 // @grant        none
@@ -11,7 +11,7 @@
 (function() {
     'use strict';
 
-    // Function to hide notification count
+    // Function to hide notification count in the Reddit UI
     function hideNotificationCount() {
         var notificationButton = document.querySelector('button[aria-label="Open notifications inbox"]');
         if (notificationButton) {
@@ -22,8 +22,13 @@
         }
     }
 
-    // MutationObserver callback
-    function callback(mutationsList, observer) {
+    // Function to clean notification count from the page title
+    function cleanPageTitle() {
+        document.title = document.title.replace(/^\(\d+\)\s*/, '');
+    }
+
+    // MutationObserver callback for changes in the DOM
+    function domCallback(mutationsList, observer) {
         for (let mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 hideNotificationCount();
@@ -31,12 +36,22 @@
         }
     }
 
-    // Create a new MutationObserver instance
-    let observer = new MutationObserver(callback);
+    // MutationObserver callback for changes in the page title
+    function titleCallback(mutationsList, observer) {
+        for (let mutation of mutationsList) {
+            cleanPageTitle();
+        }
+    }
 
-    // Start observing the entire document for changes in the child elements
-    observer.observe(document, { childList: true, subtree: true });
+    // Create and observe DOM mutations
+    let domObserver = new MutationObserver(domCallback);
+    domObserver.observe(document, { childList: true, subtree: true });
 
-    // Initial run to hide notification count
+    // Create and observe title mutations
+    let titleObserver = new MutationObserver(titleCallback);
+    titleObserver.observe(document.querySelector('title'), { childList: true });
+
+    // Initial execution
     hideNotificationCount();
+    cleanPageTitle();
 })();
