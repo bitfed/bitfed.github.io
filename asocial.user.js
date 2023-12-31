@@ -16,7 +16,7 @@
         var notificationButton = document.querySelector('button[aria-label="Open notifications inbox"]');
         if (notificationButton) {
             var notificationCount = notificationButton.querySelector('span');
-            if (notificationCount) {
+            if (notificationCount && notificationCount.style.display !== 'none') {
                 notificationCount.style.display = 'none';
             }
         }
@@ -24,28 +24,26 @@
 
     // Function to clean notification count from the page title
     function cleanPageTitle() {
-        document.title = document.title.replace(/^\(\d+\)\s*/, '');
+        var newTitle = document.title.replace(/^\(\d+\)\s*/, '');
+        if (document.title !== newTitle) {
+            document.title = newTitle;
+        }
     }
 
     // MutationObserver callback for changes in the DOM
     function domCallback(mutationsList, observer) {
-        for (let mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-                hideNotificationCount();
-            }
-        }
+        hideNotificationCount();
     }
 
     // MutationObserver callback for changes in the page title
     function titleCallback(mutationsList, observer) {
-        for (let mutation of mutationsList) {
-            cleanPageTitle();
-        }
+        cleanPageTitle();
     }
 
     // Create and observe DOM mutations
     let domObserver = new MutationObserver(domCallback);
-    domObserver.observe(document, { childList: true, subtree: true });
+    // Observe a more specific part of the DOM if possible
+    domObserver.observe(document.body, { childList: true, subtree: true });
 
     // Create and observe title mutations
     let titleObserver = new MutationObserver(titleCallback);
